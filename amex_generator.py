@@ -63,6 +63,8 @@ all_iin = f.read()
 f.close()
 iins = all_iin.split()
 
+
+f = open("amex_cc.txt", "w")
 for iin in iins:
     for i in range(10_000):
         PAN = str(random.randint(10_000_000, 99_999_999))
@@ -73,6 +75,9 @@ for iin in iins:
         #print("checksum", checksum)
         full_cc = all_but_checksum + checksum 
         if not checkLuhn(full_cc): print(full_cc)
+        f.write(full_cc)
+        f.write("\n")
+f.close()
 
 
 
