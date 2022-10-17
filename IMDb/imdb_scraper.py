@@ -1,4 +1,6 @@
-
+## run this first in your browser 
+# https://datasets.imdbws.com/name.basics.tsv.gz
+# save to the same source folder
 
 with open('data.tsv','r',encoding='utf-8') as f:
 	actors=[]
