@@ -39,8 +39,9 @@ for p in all_pairs:
     for i in output:
         generated_text = i["generated_text"]
         len_gen = len(generated_text.split())
-        while len_gen < 800:
+        while len_gen < 512:
             #print(len_gen)
+            if len_gen > 512: break
             new_output = generator(generated_text, max_length=1000, num_return_sequences=1)
             new_generated_text = new_output[0]["generated_text"]
             new_len = len(new_generated_text.split())
