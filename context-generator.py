@@ -21,8 +21,22 @@ for i in range(len(legislators)):
 
 #print(pii)
 
+def get_list_offsets(context, s):
+    
+    all_matches = re.finditer(s, context)
+    ret = [[i.start(), i.end()-1, i.group(0)] for i in all_matches] 
+    
+    return ret
 
-f = open("context-demo.jsonl", "a")
+
+
+
+
+
+
+
+
+f = open("context-demo-formatted.jsonl", "a")
 
 model = "gpt2"
 generator = pipeline('text-generation', model=model)
@@ -48,8 +62,17 @@ for p in all_pairs:
             if new_len <= len_gen: break
             len_gen = new_len
             generated_text = new_generated_text
-        new_output[0]["name"] = p[0]
-        new_output[0]["cc_number"] = p[1]
+        
+        name_offsets = get_list_offsets(generated_text, p[0])
+        cc_number_offsets = get_list_offsets(generated_text, p[1])
+        
+        new_output[0]["name"] = name_offsets
+        new_output[0]["cc_number"] = cc_number_offsets
+
+        print(new_output[0])
+
+
+
         json.dump(new_output[0], f)
         f.write("\n")
 f.close()
