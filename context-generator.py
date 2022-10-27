@@ -56,6 +56,7 @@ for p in all_pairs:
         while len_gen < 512:
             #print(len_gen)
             if len_gen > 512: break
+            print("lenght of input text", len_gen)
             new_output = generator(generated_text, max_length=1000, num_return_sequences=1)
             new_generated_text = new_output[0]["generated_text"]
             new_len = len(new_generated_text.split())
@@ -66,10 +67,14 @@ for p in all_pairs:
         name_offsets = get_list_offsets(generated_text, p[0])
         cc_number_offsets = get_list_offsets(generated_text, p[1])
         
-        new_output[0]["name"] = name_offsets
-        new_output[0]["cc_number"] = cc_number_offsets
 
+        annotations = {"name": name_offsets, "cc_number": cc_number_offsets}
+        
+        new_output[0]["prompt"] = formatted
+        new_output[0]["annotations"] = annotations
+        
         print(new_output[0])
+        
 
 
 
